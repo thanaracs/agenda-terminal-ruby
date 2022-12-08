@@ -24,9 +24,48 @@ def adicionar_contatos
 
     @agenda << {nome: nome, telefone: telefone}
 end
+def buscar_contato
+    print "Informe um nome: "
+    nome = gets.chomp
+
+    @agenda.each do |contato|
+        if contato[:nome].downcase.include?(nome.downcase)
+            puts "#{contato[:nome]} - #{contato[:telefone]}"
+        end
+        
+    end
+    puts ""
+end
+
+def editar_contato
+    print "Informe o nome a ser editado: "
+    nome = gets.chomp
+
+    @agenda.each do |contato|
+        
+        if contato[:nome].downcase == (nome.downcase)
+            puts "Dados do contato: #{contato[:nome]} - #{contato[:telefone]}"
+            print "Informe o novo nome (Caso queira manter o mesmo nome, aperte 'Enter'): "
+            nome_salvo = contato[:nome]
+
+            contato[:nome] = gets.chomp
+            contato[:nome] = contato[:nome].empty? ? nome_salvo : contato[:nome]
+
+            print "Informe o novo telefone(Caso queira manter o mesmo nome, aperte 'Enter'): "
+            telefone_salvo = contato[:telefone]
+
+            contato[:telefone] = gets.chomp
+            contato[:telefone] = contato[:telefone].empty? ? telefone_salvo : contato[:telefone]
+            puts ""
+            puts "O contato foi atualizado com êxito:"
+            puts "#{contato[:nome]} - #{contato[:telefone]}"
+            puts "-------------------"
+        end
+    end
+end
 
 loop do
-    puts "Menu:\n1. Contatos\n2. Adicionar COntato\n3. Ver Contato\n4. Editar COntato\n5. Remover Contato\n0. Sair"
+    puts "Menu:\n1. Contatos\n2. Adicionar COntato\n3. Buscar Contato\n4. Editar COntato\n5. Remover Contato\n0. Sair"
     print "Informe a opção:"
     codigo = gets.chomp.to_i
     puts ""
@@ -39,7 +78,11 @@ loop do
         todos_contatos
     when codigo == 2
         adicionar_contatos
+    when codigo == 3
+        buscar_contato
+    when codigo == 4
+        editar_contato
     end 
-
+    
 
 end
