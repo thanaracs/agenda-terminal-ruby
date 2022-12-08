@@ -13,6 +13,7 @@ def todos_contatos
         puts "#{contato[:nome]} - #{contato[:telefone]}"
         
     end
+    puts "---------------------------------"
     puts ""
 end
 
@@ -34,6 +35,7 @@ def buscar_contato
         end
         
     end
+    puts "---------------------------------"
     puts ""
 end
 
@@ -59,9 +61,33 @@ def editar_contato
             puts ""
             puts "O contato foi atualizado com êxito:"
             puts "#{contato[:nome]} - #{contato[:telefone]}"
-            puts "-------------------"
+            puts "---------------------------------"
         end
     end
+end
+
+def remover_conta
+    print "Informe o nome a ser removido: "
+    nome = gets.chomp
+
+    @agenda.each do |contato|
+        if contato[:nome].downcase == (nome.downcase)
+            indice = @agenda.index(contato)
+            @agenda.delete_at(indice)
+            puts ""
+            puts "O contato foi excluído com êxito!"
+            puts "---------------------------------"
+            break
+        else 
+            puts ""
+            puts "contato não encontrado!"
+            puts "---------------------------------"
+            break
+        end
+        
+    end
+    
+    
 end
 
 loop do
@@ -82,6 +108,11 @@ loop do
         buscar_contato
     when codigo == 4
         editar_contato
+    when codigo == 5
+        remover_conta
+    else
+        puts "Função selecionada não existe, por favot use uma função válida!"
+        puts ""
     end 
     
 
